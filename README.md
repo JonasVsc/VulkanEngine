@@ -1,2 +1,2 @@
 # VulkanEngine
-basic vulkan 2d engine
+basic vulkan 3d engine
