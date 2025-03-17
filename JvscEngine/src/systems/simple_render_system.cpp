@@ -8,8 +8,7 @@
 
 
 struct SimplePushConstantData {
-	glm::mat2 transform{ 1.f };
-	glm::vec2 offset;
+	glm::mat4 transform{ 1.f };
 	alignas(16) glm::vec3 color;
 };
 
@@ -32,10 +31,11 @@ void jvsc::SimpleRenderSystem::render_game_objects(VkCommandBuffer cmd, std::vec
 
 	for (auto& obj : game_objects)
 	{
+		obj.transform.rotate.y = glm::mod(obj.transform.rotate.y + 0.01f, glm::two_pi<float>());
+		obj.transform.rotate.x = glm::mod(obj.transform.rotate.x + 0.005f, glm::two_pi<float>());
+
 		SimplePushConstantData push;
-		push.offset = obj.transform.translation;
-		push.color = obj.color;
-		push.transform = obj.transform.mat2();
+		push.transform = obj.transform.mat4();
 
 		vkCmdPushConstants(cmd, m_pipeline_layout, VK_SHADER_STAGE_VERTEX_BIT | VK_SHADER_STAGE_FRAGMENT_BIT, 0, sizeof(SimplePushConstantData), &push);
 		

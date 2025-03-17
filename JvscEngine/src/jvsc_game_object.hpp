@@ -1,22 +1,24 @@
 #pragma once
 
-// lib
 #include "jvsc_mesh.hpp"
+
+// lib
+#include <glm/gtc/type_ptr.hpp>
 
 namespace jvsc {
 
-    struct Transform2D {
-        glm::vec2 translation{};  // (position offset)
-        glm::vec2 scale{ 1.f, 1.f };
-        float rotation;
-
-        glm::mat2 mat2() {
-            const float s = glm::sin(rotation);
-            const float c = glm::cos(rotation);
-            glm::mat2 rotMatrix{ {c, s}, {-s, c} };
-
-            glm::mat2 scaleMat{ {scale.x, .0f}, {.0f, scale.y} };
-            return rotMatrix * scaleMat;
+    struct Transform {
+        glm::vec3 translate;
+        glm::vec3 scale;
+        glm::vec3 rotate;
+        glm::mat4 mat4() {
+            glm::mat4 matrix{ 1.f };
+            matrix = glm::translate(matrix, translate);
+            matrix = glm::rotate(matrix, rotate.x, { 0.0f, 1.0f, 0.0f });
+            matrix = glm::rotate(matrix, rotate.y, { 1.0f, 0.0f, 0.0f });
+            matrix = glm::rotate(matrix, rotate.z, { 0.0f, 0.0f, 1.0f });
+            matrix = glm::scale(matrix, scale);
+            return matrix;
         }
     };
 
@@ -46,7 +48,7 @@ namespace jvsc {
         // components
         JvscMesh* mesh{};
         glm::vec3 color{};
-        Transform2D transform{};
+        Transform transform{};
 
     private:
         JvscGameObject(id_t obj_id) : id{ obj_id } {}
