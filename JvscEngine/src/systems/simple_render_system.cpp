@@ -80,5 +80,6 @@ void jvsc::SimpleRenderSystem::create_pipeline(VkRenderPass render_pass)
 	pipeline_builder.renderPass = render_pass;
 	pipeline_builder.pipelineLayout = m_pipeline_layout;
 
+
 	m_pipeline = new jvsc::JvscPipeline(m_renderer, "simple_shader.vert.spv", "simple_shader.frag.spv", pipeline_builder);
 }

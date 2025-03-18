@@ -54,7 +54,11 @@ namespace jvsc {
 
 		glfwWindowHint(GLFW_CLIENT_API, GLFW_NO_API);
 		glfwWindowHint(GLFW_RESIZABLE, GLFW_FALSE);
-		m_window = glfwCreateWindow(width, height, name.c_str(), nullptr, nullptr);
+
+		int count = 0;
+		GLFWmonitor** monitors = glfwGetMonitors(&count);
+
+		m_window = glfwCreateWindow(width, height, name.c_str(), monitors[1], nullptr);
 
 		if (!m_window)
 			throw std::runtime_error("window creation failed");

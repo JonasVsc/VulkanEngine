@@ -22,6 +22,9 @@ add_executable(jvsc_engine src/main.cpp
 	src/systems/simple_render_system.hpp
 	src/systems/simple_render_system.cpp
 
+	src/systems/gravity_physics_system.hpp
+	src/systems/vec2_field_system.hpp
+	
 )
 
 target_link_libraries(jvsc_engine glfw ${VULKAN_SDK}/Lib/vulkan-1.lib)

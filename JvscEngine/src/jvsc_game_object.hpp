@@ -5,7 +5,8 @@
 
 namespace jvsc {
 
-    struct Transform2D {
+    struct Transform2D 
+    {
         glm::vec2 translation{};  // (position offset)
         glm::vec2 scale{ 1.f, 1.f };
         float rotation;
@@ -18,6 +19,12 @@ namespace jvsc {
             glm::mat2 scaleMat{ {scale.x, .0f}, {.0f, scale.y} };
             return rotMatrix * scaleMat;
         }
+    };
+
+    struct RigidBody2D
+    {
+        glm::vec2 velocity;
+        float mass{ 1.0f };
     };
 
     class JvscGameObject
@@ -47,6 +54,7 @@ namespace jvsc {
         JvscMesh* mesh{};
         glm::vec3 color{};
         Transform2D transform{};
+        RigidBody2D rigidbody2d{};
 
     private:
         JvscGameObject(id_t obj_id) : id{ obj_id } {}

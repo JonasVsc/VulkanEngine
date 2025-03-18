@@ -21,5 +21,4 @@ private:
 
 	jvsc::JvscWindow& m_window;
 	jvsc::JvscRenderer m_renderer{ m_window };
-	std::vector<jvsc::JvscGameObject> m_game_objects;
 };
